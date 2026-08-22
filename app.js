@@ -101,36 +101,54 @@ function checkout() {
     return;
   }
 
-  // Get Customer Inputs
-  const name = document.getElementById("cust-name") ? document.getElementById("cust-name").value.trim() : "";
-  const phone = document.getElementById("cust-phone") ? document.getElementById("cust-phone").value.trim() : "";
-  const address = document.getElementById("cust-address") ? document.getElementById("cust-address").value.trim() : "";
+  // Get customer inputs
+  const nameInput = document.getElementById("cust-name");
+  const phoneInput = document.getElementById("cust-phone");
+  const addressInput = document.getElementById("cust-address");
 
-  // Validation
+  const name = nameInput?.value.trim();
+  const phone = phoneInput?.value.trim();
+  const address = addressInput?.value.trim();
+
+  // Basic validation
   if (!name || !phone || !address) {
-    alert("Please fill in your Name, Phone Number, and Delivery Address before proceeding.");
+    alert("Please fill in your Name, Phone Number, and Delivery Address before checking out.");
     return;
   }
 
-  // Build Message
+  // Format order message
   let message = `*NEW ORDER - LAYORA HIJABS*\n\n`;
   message += `*Customer Details:*\n`;
   message += `• Name: ${name}\n`;
   message += `• Phone: ${phone}\n`;
   message += `• Address: ${address}\n\n`;
-  message += `*Order Items:*\n`;
 
+  message += `*Ordered Items:*\n`;
   let grandTotal = 0;
+
   cart.forEach((item, i) => {
     const itemSubtotal = item.price * item.quantity;
-    message += `${i + 1}. ${item.title}\n   Qty: ${item.quantity} | Subtotal: ₹${itemSubtotal.toFixed(2)}\n`;
+    message += `${i + 1}. *${item.title}*\n   Qty: ${item.quantity} | ₹${itemSubtotal.toFixed(2)}\n`;
     grandTotal += itemSubtotal;
   });
 
-  message += `\n*Grand Total:* ₹${grandTotal.toFixed(2)}\n\nPlease confirm availability and payment details!`;
+  message += `\n*Grand Total:* ₹${grandTotal.toFixed(2)}\n\nPlease confirm order acceptance and share payment details.`;
 
+  // Launch WhatsApp
   const waUrl = `https://wa.me/${PRIMARY_WA_NUMBER}?text=${encodeURIComponent(message)}`;
   window.open(waUrl, '_blank');
+
+  // Clear cart, reset fields, and close drawer
+  cart = [];
+  updateCartUI();
+
+  if (nameInput) nameInput.value = "";
+  if (phoneInput) phoneInput.value = "";
+  if (addressInput) addressInput.value = "";
+
+  toggleCart();
+  showToast("Order sent! Check WhatsApp to complete purchase.");
+}
 }
 
 // Render Products Grid
