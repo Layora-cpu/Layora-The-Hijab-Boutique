@@ -431,3 +431,34 @@ a {
     gap: 1.5rem;
   }
 }
+/* Category Filter Buttons Styling */
+#category-filters {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px 0 30px;
+}
+
+.filter-btn {
+  padding: 10px 22px;
+  border: 1px solid #8C6D58;
+  background-color: #ffffff;
+  color: #8C6D58;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  background-color: #8C6D58;
+  color: #ffffff;
+}
+
+.filter-btn.active {
+  background-color: #8C6D58;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(140, 109, 88, 0.3);
+}
