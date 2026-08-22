@@ -52,6 +52,17 @@
     <h2 class="section-title">Our Complete Collection</h2>
     <p class="section-subtitle">Select your favorite styles to add them to your shopping bag.</p>
 
+    <!-- Live Product Search Bar -->
+<div style="max-width: 500px; margin: 0 auto 20px; padding: 0 15px;">
+  <input 
+    type="text" 
+    id="search-input" 
+    placeholder="Search products (e.g. Cotton, Print, Satin)..." 
+    oninput="searchProducts()"
+    style="width: 100%; padding: 12px 18px; border: 1px solid #8C6D58; border-radius: 25px; font-size: 15px; outline: none; box-sizing: border-box;"
+  />
+</div>
+    
     <!-- Category Filter Buttons -->
 <div id="category-filters" style="display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px;">
   <button class="filter-btn active" onclick="filterProducts('All')">All</button>
