@@ -25,6 +25,7 @@ function addToCart(id, title, price) {
     cart.push({ id, title, price, quantity: 1 });
   }
 
+  showToast(`Added "${title}" to bag!`);
   updateCartUI();
 }
 
@@ -214,3 +215,14 @@ function searchProducts() {
 document.addEventListener("DOMContentLoaded", function() {
   filterProducts("All");
 });
+// Toast Notification Function
+function showToast(message) {
+  const toast = document.getElementById("toast-notification");
+  if (toast) {
+    toast.innerText = message;
+    toast.classList.add("show");
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2500);
+  }
+}
