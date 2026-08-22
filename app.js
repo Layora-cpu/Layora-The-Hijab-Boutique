@@ -89,23 +89,40 @@ function updateCartUI() {
   }
 }
 
-// Generate WhatsApp Order Message with Quantities
+// Validated Checkout with Customer Delivery Details
 function checkout() {
   if (cart.length === 0) {
     alert("Your shopping bag is empty!");
     return;
   }
 
-  let message = "Hello Layora Hijabs! I would like to place an order for:\n\n";
-  let grandTotal = 0;
+  // Get Customer Inputs
+  const name = document.getElementById("cust-name") ? document.getElementById("cust-name").value.trim() : "";
+  const phone = document.getElementById("cust-phone") ? document.getElementById("cust-phone").value.trim() : "";
+  const address = document.getElementById("cust-address") ? document.getElementById("cust-address").value.trim() : "";
 
+  // Validation
+  if (!name || !phone || !address) {
+    alert("Please fill in your Name, Phone Number, and Delivery Address before proceeding.");
+    return;
+  }
+
+  // Build Message
+  let message = `*NEW ORDER - LAYORA HIJABS*\n\n`;
+  message += `*Customer Details:*\n`;
+  message += `• Name: ${name}\n`;
+  message += `• Phone: ${phone}\n`;
+  message += `• Address: ${address}\n\n`;
+  message += `*Order Items:*\n`;
+
+  let grandTotal = 0;
   cart.forEach((item, i) => {
     const itemSubtotal = item.price * item.quantity;
-    message += `${i + 1}. *${item.title}*\n   Quantity: ${item.quantity} | Price: ₹${itemSubtotal.toFixed(2)}\n\n`;
+    message += `${i + 1}. ${item.title}\n   Qty: ${item.quantity} | Subtotal: ₹${itemSubtotal.toFixed(2)}\n`;
     grandTotal += itemSubtotal;
   });
 
-  message += `*Grand Total:* ₹${grandTotal.toFixed(2)}\n\nPlease confirm availability and payment options.`;
+  message += `\n*Grand Total:* ₹${grandTotal.toFixed(2)}\n\nPlease confirm availability and payment details!`;
 
   const waUrl = `https://wa.me/${PRIMARY_WA_NUMBER}?text=${encodeURIComponent(message)}`;
   window.open(waUrl, '_blank');
