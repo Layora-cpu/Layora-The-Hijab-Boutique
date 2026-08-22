@@ -88,29 +88,37 @@
     </div>
   </footer>
 
-  <!-- Slide-out Shopping Cart Drawer & Overlay -->
-  <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+ <!-- Slide-out Shopping Cart Drawer with Delivery Form -->
+<div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-  <div id="cartModal" class="cart-modal">
-    <div class="cart-content">
-      <div class="cart-header">
-        <h3>Your Bag</h3>
-        <button class="close-btn" onclick="toggleCart()">&times;</button>
+<div id="cartModal" class="cart-modal">
+  <div class="cart-content">
+    <div class="cart-header">
+      <h3>Your Bag</h3>
+      <button class="close-btn" onclick="toggleCart()">&times;</button>
+    </div>
+    
+    <ul id="cart-items" class="cart-list">
+      <!-- Cart items dynamically render here -->
+    </ul>
+    
+    <div class="cart-footer">
+      <div class="summary-row">
+        <span>Total:</span>
+        <strong id="cart-total">₹0.00</strong>
       </div>
-      
-      <ul id="cart-items" class="cart-list">
-        <!-- Cart items dynamically render here -->
-      </ul>
-      
-      <div class="cart-footer">
-        <div class="summary-row">
-          <span>Total:</span>
-          <strong id="cart-total">₹0.00</strong>
-        </div>
-        <button class="checkout-btn" onclick="checkout()">SEND ORDER VIA WHATSAPP</button>
+
+      <!-- Customer Address Fields -->
+      <div id="checkout-form" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
+        <input type="text" id="cust-name" placeholder="Full Name *" style="padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px;" required />
+        <input type="tel" id="cust-phone" placeholder="Phone Number *" style="padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px;" required />
+        <textarea id="cust-address" placeholder="Delivery Address & Pincode *" rows="2" style="padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; resize: none;" required></textarea>
       </div>
+
+      <button class="checkout-btn" onclick="checkout()">SEND ORDER VIA WHATSAPP</button>
     </div>
   </div>
+</div>
 
   <!-- JavaScript File -->
   <script src="app.js"></script>
