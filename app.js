@@ -36,7 +36,7 @@ function removeFromCart(productName) {
   updateCartUI();
 }
 
-// Update Cart Display & Calculations
+// Update Cart Display & Calculations in INR (₹)
 function updateCartUI() {
   const cartCount = document.getElementById('cart-count');
   const cartItemsList = document.getElementById('cart-items');
@@ -52,8 +52,8 @@ function updateCartUI() {
 
   if (cart.length === 0) {
     cartItemsList.innerHTML = '<li style="text-align: center; color: #706862; padding: 20px 0;">Your bag is currently empty.</li>';
-    subtotalEl.innerText = '$0.00';
-    totalEl.innerText = '$0.00';
+    subtotalEl.innerText = '₹0.00';
+    totalEl.innerText = '₹0.00';
     return;
   }
 
@@ -68,30 +68,30 @@ function updateCartUI() {
     li.innerHTML = `
       <div>
         <strong>${item.name}</strong><br>
-        <small>$${item.price.toFixed(2)} x ${item.quantity}</small>
+        <small>₹${item.price.toFixed(2)} x ${item.quantity}</small>
       </div>
       <div>
-        <span>$${itemTotal.toFixed(2)}</span>
+        <span>₹${itemTotal.toFixed(2)}</span>
         <button onclick="removeFromCart('${item.name}')" style="background:none; border:none; color: #8C6D58; margin-left: 8px; cursor:pointer;">&times;</button>
       </div>
     `;
     cartItemsList.appendChild(li);
   });
 
-  // Subtotal output
-  subtotalEl.innerText = `$${subtotal.toFixed(2)}`;
+  // Subtotal output in ₹
+  subtotalEl.innerText = `₹${subtotal.toFixed(2)}`;
 
-  // Total with discounts and tax processing
+  // Total with discounts and tax processing in ₹
   let finalTotal = calculateFinalPrice(subtotal);
-  totalEl.innerText = `$${finalTotal.toFixed(2)}`;
+  totalEl.innerText = `₹${finalTotal.toFixed(2)}`;
 }
 
-// Price Calculator (Prepared for C++ WebAssembly integration in Step 4)
+// Price Calculator (Prepared for C++ WebAssembly integration)
 function calculateFinalPrice(subtotal) {
-  const taxRate = 0.05; // 5% tax
+  const taxRate = 0.05; // 5% GST
   
-  // 10% discount for purchases over $50
-  let discount = subtotal >= 50 ? subtotal * 0.10 : 0;
+  // 10% discount for orders over ₹2000
+  let discount = subtotal >= 2000 ? subtotal * 0.10 : 0;
   let discountedSubtotal = subtotal - discount;
   
   let total = discountedSubtotal + (discountedSubtotal * taxRate);
@@ -105,7 +105,7 @@ function checkout() {
     return;
   }
 
-  alert("Thank you for your order! This demo site complete. In a live setup, this routes directly to your payment gateway.");
+  alert("Thank you for your order with Layora Hijabs! This demo site is complete. In a live setup, this routes directly to your payment gateway (e.g., UPI, Razorpay, or Cash on Delivery).");
   cart = [];
   updateCartUI();
   toggleCart();
