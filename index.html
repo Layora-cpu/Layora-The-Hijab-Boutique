@@ -42,16 +42,21 @@
   <section id="shop" class="shop-section">
     <h2 class="section-title">Our Collections</h2>
 
-    <!-- Live Search Input -->
-    <div style="max-width: 500px; margin: 0 auto 20px; padding: 0 15px;">
-      <input 
-        type="text" 
-        id="search-input" 
-        placeholder="Search products (e.g. Cotton, Print, Satin)..." 
-        oninput="searchProducts()"
-        style="width: 100%; padding: 12px 18px; border: 1px solid #8C6D58; border-radius: 25px; font-size: 15px; outline: none; box-sizing: border-box;"
-      />
-    </div>
+    <!-- Live Search Input with Clear Button -->
+<div style="max-width: 500px; margin: 0 auto 20px; padding: 0 15px; position: relative;">
+  <input 
+    type="text" 
+    id="search-input" 
+    placeholder="Search products (e.g. Cotton, Print, Satin)..." 
+    oninput="handleSearchInput()"
+    style="width: 100%; padding: 12px 40px 12px 18px; border: 1px solid #8C6D58; border-radius: 25px; font-size: 15px; outline: none; box-sizing: border-box;"
+  />
+  <span 
+    id="clear-search-btn" 
+    onclick="clearSearch()" 
+    style="position: absolute; right: 30px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888; font-weight: bold; display: none;"
+  >✕</span>
+</div>
 
     <!-- Category Filter Buttons -->
     <div id="category-filters">
@@ -124,5 +129,11 @@
   <script src="app.js"></script>
   <!-- Notification Toast -->
 <div id="toast-notification">Item added to your bag!</div>
+  <!-- Sticky Mobile Floating Bar -->
+<div class="mobile-bottom-bar">
+<button class="mobile-cart-btn" onclick="toggleCart()">
+    🛍️ View Bag (<span id="mobile-cart-count">0</span>)
+  </button>
+</div>
 </body>
 </html>
