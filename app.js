@@ -1,12 +1,13 @@
-// Layora Hijabs - Main App Script with Item Quantities
+// Layora Hijabs - Complete Master JavaScript File
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAILzvgRfJjRPY04d7G0KAz5KtoNPJDBjkpw4xVMNbgDSQMbRDmsLswHZX76keoZRW/exec";
 const PRIMARY_WA_NUMBER = "916364254977"; 
 
 let allLoadedProducts = []; 
-let cart = []; // Array of { id, title, price, quantity }
+let cart = []; 
+let isDataLoaded = false;
 
-// Cart Overlay & Modal Toggle
+// --- CART DRAWER TOGGLE ---
 function toggleCart() {
   const modal = document.getElementById("cartModal");
   const overlay = document.getElementById("cartOverlay");
@@ -15,7 +16,19 @@ function toggleCart() {
   if (overlay) overlay.classList.toggle("active");
 }
 
-// Add Item or Increment Quantity
+// --- TOAST NOTIFICATION ---
+function showToast(message) {
+  const toast = document.getElementById("toast-notification");
+  if (toast) {
+    toast.innerText = message;
+    toast.classList.add("show");
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2500);
+  }
+}
+
+// --- CART MANAGEMENT ---
 function addToCart(id, title, price) {
   const existingItem = cart.find(item => item.id === id);
 
@@ -29,14 +42,12 @@ function addToCart(id, title, price) {
   updateCartUI();
 }
 
-// Update Specific Item Quantity (+ or -)
 function updateQuantity(id, change) {
   const itemIndex = cart.findIndex(item => item.id === id);
 
   if (itemIndex > -1) {
     cart[itemIndex].quantity += change;
 
-    // Remove item if quantity drops to 0 or below
     if (cart[itemIndex].quantity <= 0) {
       cart.splice(itemIndex, 1);
     }
@@ -45,20 +56,17 @@ function updateQuantity(id, change) {
   updateCartUI();
 }
 
-// Render Cart UI & Calculate Totals
 function updateCartUI() {
   const cartList = document.getElementById("cart-items");
   const cartTotal = document.getElementById("cart-total");
   const cartCount = document.getElementById("cart-count");
-  const mobileCount = document.getElementById("mobile-cart-count"); // <--- Added for mobile
+  const mobileCount = document.getElementById("mobile-cart-count");
 
-  // Calculate total items count
   const totalItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-  
-  if (cartCount) cartCount.innerText = totalItemCount;
-  if (mobileCount) mobileCount.innerText = totalItemCount; // <--- Updates mobile bottom bar counter
 
-  // Render Cart Drawer Content
+  if (cartCount) cartCount.innerText = totalItemCount;
+  if (mobileCount) mobileCount.innerText = totalItemCount;
+
   if (cartList) {
     cartList.innerHTML = "";
     let grandTotal = 0;
@@ -93,15 +101,13 @@ function updateCartUI() {
   }
 }
 
-
-// Validated Checkout with Customer Delivery Details
+// --- CHECKOUT PROCESS ---
 function checkout() {
   if (cart.length === 0) {
     alert("Your shopping bag is empty!");
     return;
   }
 
-  // Get customer inputs
   const nameInput = document.getElementById("cust-name");
   const phoneInput = document.getElementById("cust-phone");
   const addressInput = document.getElementById("cust-address");
@@ -110,13 +116,11 @@ function checkout() {
   const phone = phoneInput?.value.trim();
   const address = addressInput?.value.trim();
 
-  // Basic validation
   if (!name || !phone || !address) {
     alert("Please fill in your Name, Phone Number, and Delivery Address before checking out.");
     return;
   }
 
-  // Format order message
   let message = `*NEW ORDER - LAYORA HIJABS*\n\n`;
   message += `*Customer Details:*\n`;
   message += `• Name: ${name}\n`;
@@ -134,11 +138,9 @@ function checkout() {
 
   message += `\n*Grand Total:* ₹${grandTotal.toFixed(2)}\n\nPlease confirm order acceptance and share payment details.`;
 
-  // Launch WhatsApp
   const waUrl = `https://wa.me/${PRIMARY_WA_NUMBER}?text=${encodeURIComponent(message)}`;
   window.open(waUrl, '_blank');
 
-  // Clear cart, reset fields, and close drawer
   cart = [];
   updateCartUI();
 
@@ -149,9 +151,8 @@ function checkout() {
   toggleCart();
   showToast("Order sent! Check WhatsApp to complete purchase.");
 }
-}
 
-// Render Products Grid
+// --- PRODUCT GRID & SEARCH ---
 function renderGrid(products) {
   const grid = document.getElementById("product-grid");
   if (!grid) return;
@@ -171,8 +172,6 @@ function renderGrid(products) {
 
     const waMessage = encodeURIComponent(`Hello Layora Hijabs! I am interested in ordering:\n\n*Product:* ${title}\n*Price:* ₹${priceVal}\n\nPlease confirm availability.`);
     const waLink = `https://wa.me/${PRIMARY_WA_NUMBER}?text=${waMessage}`;
-
-    // Clean single quotes in titles for inline onclick functions
     const safeTitle = title.replace(/'/g, "\\'");
 
     grid.innerHTML += `
@@ -189,14 +188,31 @@ function renderGrid(products) {
   });
 }
 
-// Fetch Inventory & Filter
-async function filterProducts(category) {
+// --- DATA FETCHING & CATEGORY FILTERING ---
+async function fetchProductsFromSheet() {
   const grid = document.getElementById("product-grid");
   if (!grid) return;
 
-  const searchInput = document.getElementById("search-input");
-  if (searchInput) searchInput.value = "";
+  grid.innerHTML = "<p style='text-align: center; grid-column: 1/-1;'>Loading collection...</p>";
 
+  try {
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method: "GET",
+      redirect: "follow"
+    });
+
+    const result = await response.json();
+    allLoadedProducts = result.data || [];
+    isDataLoaded = true;
+
+    renderGrid(allLoadedProducts);
+  } catch (err) {
+    console.error("Error fetching data:", err);
+    grid.innerHTML = "<p style='text-align: center; grid-column: 1/-1;'>Unable to load live inventory. Please refresh the page.</p>";
+  }
+}
+
+function filterProducts(category) {
   const buttons = document.querySelectorAll("#category-filters .filter-btn");
   buttons.forEach(btn => {
     if (btn.innerText.trim().toLowerCase() === category.toLowerCase()) {
@@ -206,49 +222,23 @@ async function filterProducts(category) {
     }
   });
 
-  grid.innerHTML = "<p style='text-align: center; grid-column: 1/-1;'>Loading collection...</p>";
+  if (!isDataLoaded) {
+    fetchProductsFromSheet();
+    return;
+  }
 
-  try {
-    const response = await fetch(`${GOOGLE_SCRIPT_URL}?category=${encodeURIComponent(category)}`, {
-      method: "GET",
-      redirect: "follow"
-    });
-
-    const result = await response.json();
-    allLoadedProducts = result.data || [];
+  if (category.toLowerCase() === "all") {
     renderGrid(allLoadedProducts);
-
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    grid.innerHTML = "<p style='text-align: center; grid-column: 1/-1;'>Unable to load live inventory. Please refresh the page.</p>";
+  } else {
+    const filtered = allLoadedProducts.filter(item => {
+      const itemCat = (item.category || item.Category || "").toLowerCase();
+      return itemCat === category.toLowerCase();
+    });
+    renderGrid(filtered);
   }
 }
 
-// Real-Time Search
-function searchProducts() {
-  const query = document.getElementById("search-input").value.toLowerCase().trim();
-  const filtered = allLoadedProducts.filter(item => {
-    const title = (item.title || item.Title || "").toLowerCase();
-    return title.includes(query);
-  });
-  renderGrid(filtered);
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-  filterProducts("All");
-});
-// Toast Notification Function
-function showToast(message) {
-  const toast = document.getElementById("toast-notification");
-  if (toast) {
-    toast.innerText = message;
-    toast.classList.add("show");
-    setTimeout(() => {
-      toast.classList.remove("show");
-    }, 2500);
-  }
-}
-// Search Clear Logic
+// --- SEARCH FUNCTIONS ---
 function handleSearchInput() {
   const input = document.getElementById("search-input");
   const clearBtn = document.getElementById("clear-search-btn");
@@ -269,3 +259,21 @@ function clearSearch() {
   
   renderGrid(allLoadedProducts);
 }
+
+function searchProducts() {
+  const input = document.getElementById("search-input");
+  if (!input) return;
+
+  const query = input.value.toLowerCase().trim();
+  const filtered = allLoadedProducts.filter(item => {
+    const title = (item.title || item.Title || "").toLowerCase();
+    return title.includes(query);
+  });
+
+  renderGrid(filtered);
+}
+
+// --- INITIAL LOAD ---
+document.addEventListener("DOMContentLoaded", function() {
+  fetchProductsFromSheet();
+});
