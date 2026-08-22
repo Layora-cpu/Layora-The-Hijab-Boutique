@@ -50,10 +50,13 @@ function updateCartUI() {
   const cartList = document.getElementById("cart-items");
   const cartTotal = document.getElementById("cart-total");
   const cartCount = document.getElementById("cart-count");
+  const mobileCount = document.getElementById("mobile-cart-count"); // <--- Added for mobile
 
   // Calculate total items count
   const totalItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  
   if (cartCount) cartCount.innerText = totalItemCount;
+  if (mobileCount) mobileCount.innerText = totalItemCount; // <--- Updates mobile bottom bar counter
 
   // Render Cart Drawer Content
   if (cartList) {
@@ -89,6 +92,7 @@ function updateCartUI() {
     }
   }
 }
+
 
 // Validated Checkout with Customer Delivery Details
 function checkout() {
@@ -225,4 +229,25 @@ function showToast(message) {
       toast.classList.remove("show");
     }, 2500);
   }
+}
+// Search Clear Logic
+function handleSearchInput() {
+  const input = document.getElementById("search-input");
+  const clearBtn = document.getElementById("clear-search-btn");
+  
+  if (clearBtn) {
+    clearBtn.style.display = input.value.trim().length > 0 ? "block" : "none";
+  }
+  
+  searchProducts();
+}
+
+function clearSearch() {
+  const input = document.getElementById("search-input");
+  const clearBtn = document.getElementById("clear-search-btn");
+  
+  if (input) input.value = "";
+  if (clearBtn) clearBtn.style.display = "none";
+  
+  renderGrid(allLoadedProducts);
 }
