@@ -589,5 +589,26 @@
   </footer>
 
   <script src="app.js"></script>
+<!-- Shopping Cart Drawer -->
+<div id="cartModal" class="cart-modal">
+  <div class="cart-content">
+    <div class="cart-header">
+      <h3>Your Bag</h3>
+      <button class="close-btn" onclick="toggleCart()">&times;</button>
+    </div>
+    
+    <ul id="cart-items" class="cart-list">
+      <!-- Items added dynamically -->
+    </ul>
+    
+    <div class="cart-footer">
+      <div class="summary-row">
+        <span>Total:</span>
+        <strong id="cart-total">₹0.00</strong>
+      </div>
+      <button class="checkout-btn" onclick="checkout()">Send Order via WhatsApp</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
