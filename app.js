@@ -1,89 +1,79 @@
-// Layora Hijabs - Main App Script
+// Layora Hijabs - Master App Script
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAILzvgRfJjRPY04d7G0KAz5KtoNPJDBjkpw4xVMNbgDSQMbRDmsLswHZX76keoZRW/exec";
-const PRIMARY_WA_NUMBER = "916364254977"; // Primary WhatsApp Business Number
+const PRIMARY_WA_NUMBER = "916364254977";
 
-let allLoadedProducts = []; // Stores products locally for fast client-side search
+let allLoadedProducts = [];
 let cart = [];
 
-// Cart State Management
+// Toggle Slide-Out Cart Drawer & Overlay
 function toggleCart() {
   const modal = document.getElementById("cartModal");
-  if (modal) {
-    modal.classList.toggle("active");
-  }
+  const overlay = document.getElementById("cartOverlay");
+
+  if (modal) modal.classList.toggle("active");
+  if (overlay) overlay.classList.toggle("active");
 }
 
-// Fixed Cart Management Functions
-
-let cart = [];
-
-function toggleCart() {
-  const modal = document.getElementById("cartModal");
-  if (modal) {
-    modal.classList.toggle("active");
-  }
-}
-
+// Add Item to Cart
 function addToCart(title, price) {
   cart.push({ title, price });
   updateCartUI();
+  
+  // Auto-open cart drawer when adding item
+  const modal = document.getElementById("cartModal");
+  if (modal && !modal.classList.contains("active")) {
+    toggleCart();
+  }
 }
 
+// Remove Item from Cart
 function removeFromCart(index) {
   cart.splice(index, 1);
   updateCartUI();
 }
 
+// Update Cart Display & Totals
 function updateCartUI() {
   const cartList = document.getElementById("cart-items");
   const cartTotal = document.getElementById("cart-total");
-  const cartCountBtns = document.querySelectorAll("#cart-count, .cart-btn");
+  const cartCountEl = document.getElementById("cart-count");
 
-  // Update top button counter (e.g. "Cart (5)")
-  cartCountBtns.forEach(el => {
-    if (el.id === "cart-count") {
-      el.innerText = cart.length;
-    } else if (el.innerText.includes("Cart")) {
-      el.innerText = `Cart (${cart.length})`;
-    }
-  });
+  if (cartCountEl) cartCountEl.innerText = cart.length;
 
-  // Render items in cart drawer
   if (cartList) {
     cartList.innerHTML = "";
     let total = 0;
 
     if (cart.length === 0) {
-      cartList.innerHTML = "<li style='text-align: center; color: #888; padding: 20px;'>Your bag is empty.</li>";
+      cartList.innerHTML = "<li style='text-align: center; color: #888; padding: 20px 0;'>Your bag is empty.</li>";
     } else {
       cart.forEach((item, index) => {
         total += item.price;
         cartList.innerHTML += `
           <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #eee;">
             <div>
-              <div style="font-weight: 600; font-size: 14px;">${item.title}</div>
+              <div style="font-weight: 600; font-size: 14px; color: #333;">${item.title}</div>
               <div style="color: #8C6D58; font-size: 13px;">₹${item.price.toFixed(2)}</div>
             </div>
-            <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #d9534f; cursor: pointer; font-size: 16px;">&times;</button>
+            <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #d9534f; cursor: pointer; font-size: 18px; font-weight: bold;">&times;</button>
           </li>
         `;
       });
     }
 
-    if (cartTotal) {
-      cartTotal.innerText = `₹${total.toFixed(2)}`;
-    }
+    if (cartTotal) cartTotal.innerText = `₹${total.toFixed(2)}`;
   }
 }
 
+// WhatsApp Multi-Item Checkout
 function checkout() {
   if (cart.length === 0) {
     alert("Your shopping bag is empty!");
     return;
   }
 
-  let message = "Hello Layora Hijabs! I would like to order:\n\n";
+  let message = "Hello Layora Hijabs! I would like to place an order for:\n\n";
   let total = 0;
 
   cart.forEach((item, i) => {
@@ -93,7 +83,7 @@ function checkout() {
 
   message += `\n*Total Amount:* ₹${total.toFixed(2)}\n\nPlease confirm availability and payment details.`;
 
-  const waUrl = `https://wa.me/916364254977?text=${encodeURIComponent(message)}`;
+  const waUrl = `https://wa.me/${PRIMARY_WA_NUMBER}?text=${encodeURIComponent(message)}`;
   window.open(waUrl, '_blank');
 }
 
@@ -131,16 +121,14 @@ function renderGrid(products) {
   });
 }
 
-// Category Filtering & Fetching from Google Sheet
+// Category Filtering from Google Sheet
 async function filterProducts(category) {
   const grid = document.getElementById("product-grid");
   if (!grid) return;
 
-  // Reset search box when category changes
   const searchInput = document.getElementById("search-input");
   if (searchInput) searchInput.value = "";
 
-  // Highlight active filter button
   const buttons = document.querySelectorAll("#category-filters .filter-btn");
   buttons.forEach(btn => {
     if (btn.innerText.trim().toLowerCase() === category.toLowerCase()) {
@@ -168,7 +156,7 @@ async function filterProducts(category) {
   }
 }
 
-// Real-Time Search Filter
+// Real-Time Search Function
 function searchProducts() {
   const query = document.getElementById("search-input").value.toLowerCase().trim();
   const filtered = allLoadedProducts.filter(item => {
