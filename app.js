@@ -14,41 +14,87 @@ function toggleCart() {
   }
 }
 
+// Fixed Cart Management Functions
+
+let cart = [];
+
+function toggleCart() {
+  const modal = document.getElementById("cartModal");
+  if (modal) {
+    modal.classList.toggle("active");
+  }
+}
+
 function addToCart(title, price) {
   cart.push({ title, price });
   updateCartUI();
-  
-  const cartCount = document.getElementById("cart-count");
-  if (cartCount) {
-    cartCount.innerText = cart.length;
-  }
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCartUI();
 }
 
 function updateCartUI() {
   const cartList = document.getElementById("cart-items");
-  const cartSubtotal = document.getElementById("cart-subtotal");
   const cartTotal = document.getElementById("cart-total");
-  const cartCount = document.getElementById("cart-count");
+  const cartCountBtns = document.querySelectorAll("#cart-count, .cart-btn");
 
-  if (cartCount) cartCount.innerText = cart.length;
+  // Update top button counter (e.g. "Cart (5)")
+  cartCountBtns.forEach(el => {
+    if (el.id === "cart-count") {
+      el.innerText = cart.length;
+    } else if (el.innerText.includes("Cart")) {
+      el.innerText = `Cart (${cart.length})`;
+    }
+  });
 
+  // Render items in cart drawer
   if (cartList) {
     cartList.innerHTML = "";
     let total = 0;
 
-    cart.forEach((item) => {
-      total += item.price;
-      cartList.innerHTML += `
-        <li style="display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
-          <span>${item.title}</span>
-          <strong>₹${item.price.toFixed(2)}</strong>
-        </li>
-      `;
-    });
+    if (cart.length === 0) {
+      cartList.innerHTML = "<li style='text-align: center; color: #888; padding: 20px;'>Your bag is empty.</li>";
+    } else {
+      cart.forEach((item, index) => {
+        total += item.price;
+        cartList.innerHTML += `
+          <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #eee;">
+            <div>
+              <div style="font-weight: 600; font-size: 14px;">${item.title}</div>
+              <div style="color: #8C6D58; font-size: 13px;">₹${item.price.toFixed(2)}</div>
+            </div>
+            <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #d9534f; cursor: pointer; font-size: 16px;">&times;</button>
+          </li>
+        `;
+      });
+    }
 
-    if (cartSubtotal) cartSubtotal.innerText = `₹${total.toFixed(2)}`;
-    if (cartTotal) cartTotal.innerText = `₹${total.toFixed(2)}`;
+    if (cartTotal) {
+      cartTotal.innerText = `₹${total.toFixed(2)}`;
+    }
   }
+}
+
+function checkout() {
+  if (cart.length === 0) {
+    alert("Your shopping bag is empty!");
+    return;
+  }
+
+  let message = "Hello Layora Hijabs! I would like to order:\n\n";
+  let total = 0;
+
+  cart.forEach((item, i) => {
+    message += `${i + 1}. ${item.title} - ₹${item.price.toFixed(2)}\n`;
+    total += item.price;
+  });
+
+  message += `\n*Total Amount:* ₹${total.toFixed(2)}\n\nPlease confirm availability and payment details.`;
+
+  const waUrl = `https://wa.me/916364254977?text=${encodeURIComponent(message)}`;
+  window.open(waUrl, '_blank');
 }
 
 // Render Products Grid
