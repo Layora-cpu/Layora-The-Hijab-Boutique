@@ -3,613 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Layora Hijabs | Modest & Elegant Wear</title>
+  <title>Layora Hijabs - Online Store</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <!-- Navigation Bar -->
-  <header class="navbar">
-    <div class="logo">LAYORA HIJABS</div>
-    <nav class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#shop">Collection</a>
-      <a href="#about">About Us</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="cart-btn" onclick="toggleCart()">
-      🛒 Cart (<span id="cart-count">0</span>)
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <h2>LAYORA HIJABS</h2>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#home">HOME</a></li>
+          <li><a href="#shop">COLLECTION</a></li>
+          <li><a href="#about">ABOUT US</a></li>
+          <li><a href="#contact">CONTACT</a></li>
+        </ul>
+      </nav>
+      <button class="cart-btn" onclick="toggleCart()">
+        Cart (<span id="cart-count">0</span>)
+      </button>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <h1>Grace & Elegance in Every Thread</h1>
-      <p>Explore our exclusive collection of hijabs, caps, sleeves, and accessories crafted for comfort and modest beauty.</p>
-      <a href="#shop" class="cta-btn">Explore Collection</a>
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <h1>Elegance in Every Fold</h1>
+      <p>Discover our exclusive collection of premium hijabs, caps, and accessories.</p>
+      <a href="#shop" class="cta-btn">Shop Collection</a>
     </div>
   </section>
 
-  <!-- Store Highlights -->
-  <section class="features">
-    <div class="feature-box">
-      <h3>Premium Quality</h3>
-      <p>Soft, durable fabrics curated with precision.</p>
-    </div>
-    <div class="feature-box">
-      <h3>All-India Shipping</h3>
-      <p>Fast and reliable doorstep delivery across India.</p>
-    </div>
-    <div class="feature-box">
-      <h3>Customer Satisfaction</h3>
-      <p>Hassle-free support & smooth checkout experience.</p>
-    </div>
-  </section>
+  <!-- Main Store Section -->
+  <section id="shop" class="shop-section">
+    <h2 class="section-title">Our Collections</h2>
 
-  <!-- Main Catalog -->
-  <main class="shop-container" id="shop">
-    <h2 class="section-title">Our Complete Collection</h2>
-    <p class="section-subtitle">Select your favorite styles to add them to your shopping bag.</p>
+    <!-- Live Search Input -->
+    <div style="max-width: 500px; margin: 0 auto 20px; padding: 0 15px;">
+      <input 
+        type="text" 
+        id="search-input" 
+        placeholder="Search products (e.g. Cotton, Print, Satin)..." 
+        oninput="searchProducts()"
+        style="width: 100%; padding: 12px 18px; border: 1px solid #8C6D58; border-radius: 25px; font-size: 15px; outline: none; box-sizing: border-box;"
+      />
+    </div>
 
-    <!-- Live Product Search Bar -->
-<div style="max-width: 500px; margin: 0 auto 20px; padding: 0 15px;">
-  <input 
-    type="text" 
-    id="search-input" 
-    placeholder="Search products (e.g. Cotton, Print, Satin)..." 
-    oninput="searchProducts()"
-    style="width: 100%; padding: 12px 18px; border: 1px solid #8C6D58; border-radius: 25px; font-size: 15px; outline: none; box-sizing: border-box;"
-  />
-</div>
-    
     <!-- Category Filter Buttons -->
-<div id="category-filters" style="display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px;">
-  <button class="filter-btn active" onclick="filterProducts('All')">All</button>
-  <button class="filter-btn" onclick="filterProducts('Hijabs')">Hijabs</button>
-  <button class="filter-btn" onclick="filterProducts('Caps')">Caps</button>
-  <button class="filter-btn" onclick="filterProducts('Sleeves')">Sleeves</button>
-  <button class="filter-btn" onclick="filterProducts('Pins')">Pins</button>
-  <button class="filter-btn" onclick="filterProducts('Accessories')">Accessories</button>
-</div>
-
-<!-- Container where products will display -->
-<div id="product-grid" class="product-grid">
-  <!-- Products will load here dynamically from your Google Sheet -->
-</div>
-    
-    <div class="product-grid">
-      
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Animal Print Hijab">
-        <h3>Animal Print Hijab</h3>
-        <p class="price">₹319.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Animal Print Hijab', 319)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Bandana">
-        <h3>Bandana</h3>
-        <p class="price">₹269.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Bandana', 269)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Bridal Georgette">
-        <h3>Bridal Georgette</h3>
-        <p class="price">₹340.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Bridal Georgette', 340)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Bubble Satin Stone">
-        <h3>Bubble Satin Stone</h3>
-        <p class="price">₹319.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Bubble Satin Stone', 319)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Cotton Hijab">
-        <h3>Cotton Hijab</h3>
-        <p class="price">₹200.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Cotton Hijab', 200)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Cotton Black & White Hijab">
-        <h3>Cotton Black & White Hijab</h3>
-        <p class="price">₹140.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Cotton Black & White Hijab', 140)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Cotton Print Hijab">
-        <h3>Cotton Print Hijab</h3>
-        <p class="price">₹259.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Cotton Print Hijab', 259)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Digital Print Hijab">
-        <h3>Digital Print Hijab</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Digital Print Hijab', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Edgem Embroidery">
-        <h3>Edgem Embroidery</h3>
-        <p class="price">₹349.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Edgem Embroidery', 349)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Embroidery Organza">
-        <h3>Embroidery Organza</h3>
-        <p class="price">₹329.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Embroidery Organza', 329)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Floral Print Cotton Hijab">
-        <h3>Floral Print Cotton Hijab</h3>
-        <p class="price">₹140.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Floral Print Cotton Hijab', 140)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Hesh Nine Black Hijab">
-        <h3>Hesh Nine Black Hijab</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Hesh Nine Black Hijab', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Heavy Chiffon Crochet">
-        <h3>Heavy Chiffon Crochet</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Heavy Chiffon Crochet', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Heavy Chiffon">
-        <h3>Heavy Chiffon</h3>
-        <p class="price">₹200.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Heavy Chiffon', 200)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Jersey Jersey">
-        <h3>Jersey Jersey</h3>
-        <p class="price">₹289.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Jersey Jersey', 289)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Lux Organza">
-        <h3>Lux Organza</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Lux Organza', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Malaysian Cotton">
-        <h3>Malaysian Cotton</h3>
-        <p class="price">₹269.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Malaysian Cotton', 269)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Moja Hand Sleeves">
-        <h3>Moja Hand Sleeves</h3>
-        <p class="price">₹169.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Hand Sleeves', 169)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Moja Jersey">
-        <h3>Moja Jersey</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Jersey', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Moja Kids Jersey">
-        <h3>Moja Kids Jersey</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Kids Jersey', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Moja Kids Organza">
-        <h3>Moja Kids Organza</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Kids Organza', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Moja Loop Pin">
-        <h3>Moja Loop Pin</h3>
-        <p class="price">₹149.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Loop Pin', 149)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Moja Magnetic Hijab">
-        <h3>Moja Magnetic Hijab</h3>
-        <p class="price">₹369.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Magnetic Hijab', 369)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Moja Magnetic Pin">
-        <h3>Moja Magnetic Pin</h3>
-        <p class="price">₹120.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Magnetic Pin', 120)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Moja Malaysian Georgette">
-        <h3>Moja Malaysian Georgette</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Malaysian Georgette', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Moja Organza">
-        <h3>Moja Organza</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Organza', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Moja Shoulder Sleeves">
-        <h3>Moja Shoulder Sleeves</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Shoulder Sleeves', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Moja Strips Chiffon">
-        <h3>Moja Strips Chiffon</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Strips Chiffon', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Moja Tie Cap">
-        <h3>Moja Tie Cap</h3>
-        <p class="price">₹149.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Moja Tie Cap', 149)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Muna Satin Hijab">
-        <h3>Muna Satin Hijab</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Muna Satin Hijab', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Niqab">
-        <h3>Niqab</h3>
-        <p class="price">₹169.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Niqab', 169)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Ombre Chiffon">
-        <h3>Ombre Chiffon</h3>
-        <p class="price">₹269.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Ombre Chiffon', 269)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Ombre Double Color">
-        <h3>Ombre Double Color</h3>
-        <p class="price">₹249.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Ombre Double Color', 249)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Ombre Turkish Cotton">
-        <h3>Ombre Turkish Cotton</h3>
-        <p class="price">₹269.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Ombre Turkish Cotton', 269)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Organic Cotton Prayer Dress">
-        <h3>Organic Cotton Prayer Dress</h3>
-        <p class="price">₹569.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Organic Cotton Prayer Dress', 569)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Organza">
-        <h3>Organza</h3>
-        <p class="price">₹249.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Organza', 249)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Organza Shimmer Rhinestone">
-        <h3>Organza Shimmer Rhinestone</h3>
-        <p class="price">₹319.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Organza Shimmer Rhinestone', 319)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Organza Yusra">
-        <h3>Organza Yusra</h3>
-        <p class="price">₹349.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Organza Yusra', 349)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Pashmina Hijab">
-        <h3>Pashmina Hijab</h3>
-        <p class="price">₹319.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Pashmina Hijab', 319)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Ravka Heavy Chiffon">
-        <h3>Ravka Heavy Chiffon</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Ravka Heavy Chiffon', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Organza Premium">
-        <h3>Organza Premium</h3>
-        <p class="price">₹319.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Organza Premium', 319)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Scrunchies">
-        <h3>Scrunchies</h3>
-        <p class="price">₹149.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Scrunchies', 149)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Sidra Cap">
-        <h3>Sidra Cap</h3>
-        <p class="price">₹60.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Sidra Cap', 60)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Shimmer Crush Satin">
-        <h3>Shimmer Crush Satin</h3>
-        <p class="price">₹349.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Shimmer Crush Satin', 349)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Shining Print">
-        <h3>Shining Print</h3>
-        <p class="price">₹200.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Shining Print', 200)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Textured Satin">
-        <h3>Textured Satin</h3>
-        <p class="price">₹319.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Textured Satin', 319)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Velvet Scrunchies">
-        <h3>Velvet Scrunchies</h3>
-        <p class="price">₹159.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Velvet Scrunchies', 159)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Yusra Chiffon">
-        <h3>Yusra Chiffon</h3>
-        <p class="price">₹319.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Yusra Chiffon', 319)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Yusra Georgette Strips">
-        <h3>Yusra Georgette Strips</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Yusra Georgette Strips', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Zara Bonnet Cap">
-        <h3>Zara Bonnet Cap</h3>
-        <p class="price">₹149.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Bonnet Cap', 149)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Zara Crinkled Cotton">
-        <h3>Zara Crinkled Cotton</h3>
-        <p class="price">₹269.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Crinkled Cotton', 269)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Zara Crushed Organza">
-        <h3>Zara Crushed Organza</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Crushed Organza', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Zara Glimmer Organza">
-        <h3>Zara Glimmer Organza</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Glimmer Organza', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Zara Hijab Tie Cap">
-        <h3>Zara Hijab Tie Cap</h3>
-        <p class="price">₹169.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Hijab Tie Cap', 169)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Zara Lux Jersey">
-        <h3>Zara Lux Jersey</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Lux Jersey', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Zara Lux Satin">
-        <h3>Zara Lux Satin</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Lux Satin', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Zara Triple Black">
-        <h3>Zara Triple Black</h3>
-        <p class="price">₹349.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Triple Black', 349)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Zara Magnetic Pin">
-        <h3>Zara Magnetic Pin</h3>
-        <p class="price">₹120.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Magnetic Pin', 120)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Zara Malaysian Georgette">
-        <h3>Zara Malaysian Georgette</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Malaysian Georgette', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Zara Neck Cover">
-        <h3>Zara Neck Cover</h3>
-        <p class="price">₹199.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Neck Cover', 199)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Zara Shaper">
-        <h3>Zara Shaper</h3>
-        <p class="price">₹119.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Shaper', 119)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=500&q=80" alt="Zara Shoulder Sleeve">
-        <h3>Zara Shoulder Sleeve</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Shoulder Sleeve', 299)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80" alt="Zara Tube Cap">
-        <h3>Zara Tube Cap</h3>
-        <p class="price">₹149.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Tube Cap', 149)">Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Zara Watercolor">
-        <h3>Zara Watercolor</h3>
-        <p class="price">₹299.00</p>
-        <button class="add-to-cart-btn" onclick="addToCart('Zara Watercolor', 299)">Add to Cart</button>
-      </div>
-
+    <div id="category-filters">
+      <button class="filter-btn active" onclick="filterProducts('All')">All</button>
+      <button class="filter-btn" onclick="filterProducts('Hijabs')">Hijabs</button>
+      <button class="filter-btn" onclick="filterProducts('Caps')">Caps</button>
+      <button class="filter-btn" onclick="filterProducts('Sleeves')">Sleeves</button>
+      <button class="filter-btn" onclick="filterProducts('Pins')">Pins</button>
+      <button class="filter-btn" onclick="filterProducts('Accessories')">Accessories</button>
     </div>
-  </main>
+
+    <!-- Dynamic Product Display Grid -->
+    <div id="product-grid" class="product-grid">
+      <p style="text-align: center; grid-column: 1/-1;">Loading collection...</p>
+    </div>
+  </section>
 
   <!-- About Section -->
-  <section class="about-section" id="about">
-    <div class="about-content">
-      <h2>About Layora Hijabs</h2>
-      <p>Founded with a passion for modesty and modern elegance, Layora Hijabs brings you premium fabrics, caps, and accessories designed for maximum comfort and style.</p>
-    </div>
+  <section id="about" class="about-section">
+    <h2>About Layora Hijabs</h2>
+    <p>We provide modest, high-quality, and comfortable hijabs tailored for everyday elegance and special occasions.</p>
   </section>
 
-  <!-- Shopping Cart Modal Drawer -->
-  <div class="cart-modal" id="cartModal">
-    <div class="cart-overlay" onclick="toggleCart()"></div>
-    <div class="cart-content">
-      <div class="cart-header">
-        <h3>Your Shopping Bag</h3>
-        <span class="close-btn" onclick="toggleCart()">&times;</span>
-      </div>
-      
-      <ul id="cart-items" class="cart-items-list"></ul>
-      
-      <div class="cart-summary">
-        <div class="summary-line">
-          <span>Subtotal:</span>
-          <span id="cart-subtotal">₹0.00</span>
-        </div>
-        <div class="summary-line total-line">
-          <span>Total (inc. GST & discounts):</span>
-          <strong id="cart-total">₹0.00</strong>
-        </div>
-        <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer" id="contact">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3>LAYORA HIJABS</h3>
-        <p>Elegance in Modesty.</p>
-      </div>
-      <div class="footer-links">
-        <h4>Customer Care</h4>
-        <a href="#">Shipping Policy</a>
-        <a href="#">Returns & Exchanges</a>
-        <a href="#">FAQ</a>
-      </div>
-      <div class="footer-contact">
-        <h4>Contact Us</h4>
-        <p>Email: support@layorahijabs.com</p>
-        <p>Instagram: @layorahijabs</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Layora Hijabs. All Rights Reserved.</p>
+  <!-- Footer Section -->
+  <footer id="contact">
+    <div class="footer-container">
+      <h3>Layora Hijabs</h3>
+      <p>Email: <a href="mailto:layorahijabs@gmail.com" style="color: #fff;">layorahijabs@gmail.com</a></p>
+      <p>WhatsApp Order Lines: 
+        <a href="https://wa.me/916364254977" target="_blank" style="color: #fff;">+91 63642 54977</a> | 
+        <a href="https://wa.me/917899315879" target="_blank" style="color: #fff;">+91 78993 15879</a>
+      </p>
+      <p class="copyright">&copy; Layora Hijabs. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <script src="app.js"></script>
-  
-<!-- Shopping Cart Drawer -->
-<div id="cartModal" class="cart-modal">
-  <div class="cart-content" style="display: flex; flex-direction: column; height: 100%;">
-    <div class="cart-header">
-      <h3>Your Bag</h3>
-      <button class="close-btn" onclick="toggleCart()">&times;</button>
-    </div>
-    
-    <ul id="cart-items" class="cart-list">
-      <!-- Items render here dynamically -->
-    </ul>
-    
-    <div class="cart-footer">
-      <div class="summary-row">
-        <span>Total:</span>
-        <strong id="cart-total">₹0.00</strong>
+  <!-- Slide-out Shopping Cart Drawer & Overlay -->
+  <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+  <div id="cartModal" class="cart-modal">
+    <div class="cart-content">
+      <div class="cart-header">
+        <h3>Your Bag</h3>
+        <button class="close-btn" onclick="toggleCart()">&times;</button>
       </div>
-      <button class="checkout-btn" onclick="checkout()">SEND ORDER VIA WHATSAPP</button>
+      
+      <ul id="cart-items" class="cart-list">
+        <!-- Cart items dynamically render here -->
+      </ul>
+      
+      <div class="cart-footer">
+        <div class="summary-row">
+          <span>Total:</span>
+          <strong id="cart-total">₹0.00</strong>
+        </div>
+        <button class="checkout-btn" onclick="checkout()">SEND ORDER VIA WHATSAPP</button>
+      </div>
     </div>
   </div>
-</div>
+
+  <!-- JavaScript File -->
+  <script src="app.js"></script>
 </body>
 </html>
