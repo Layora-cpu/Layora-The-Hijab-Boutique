@@ -52,6 +52,21 @@
     <h2 class="section-title">Our Complete Collection</h2>
     <p class="section-subtitle">Select your favorite styles to add them to your shopping bag.</p>
 
+    <!-- Category Filter Buttons -->
+<div id="category-filters" style="display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px;">
+  <button class="filter-btn active" onclick="filterProducts('All')">All</button>
+  <button class="filter-btn" onclick="filterProducts('Hijabs')">Hijabs</button>
+  <button class="filter-btn" onclick="filterProducts('Caps')">Caps</button>
+  <button class="filter-btn" onclick="filterProducts('Sleeves')">Sleeves</button>
+  <button class="filter-btn" onclick="filterProducts('Pins')">Pins</button>
+  <button class="filter-btn" onclick="filterProducts('Accessories')">Accessories</button>
+</div>
+
+<!-- Container where products will display -->
+<div id="product-grid" class="product-grid">
+  <!-- Products will load here dynamically from your Google Sheet -->
+</div>
+    
     <div class="product-grid">
       
       <div class="product-card">
