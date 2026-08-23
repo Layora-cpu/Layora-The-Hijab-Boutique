@@ -1,4 +1,4 @@
-const PRODUCTS = [
+window.PRODUCTS = [
   {id:"LAY001",name:"Animal Print Hijab",price:319,category:"hijab",description:"Animal Print Hijab — thoughtfully selected for the Layora collection.",image:"assets/products/LAY001.jpg",colours:["Black","Beige","Pink","Maroon","Other"],featured:true},
   {id:"LAY002",name:"Bandana",price:269,category:"accessories",description:"Bandana — thoughtfully selected for the Layora collection.",image:"assets/products/LAY002.jpg",colours:["Black","Beige","Pink","Maroon","Other"],featured:false},
   {id:"LAY003",name:"Bridal Georgette",price:340,category:"hijab",description:"Bridal Georgette — thoughtfully selected for the Layora collection.",image:"assets/products/LAY003.jpg",colours:["Black","Beige","Pink","Maroon","Other"],featured:true},
